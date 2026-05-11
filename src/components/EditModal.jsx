@@ -48,11 +48,10 @@ export function EditModal({ destinstion }) {
   };
   return (
     <Modal>
-      <div className="py-5 flex justify-end">
-        <Button variant="outline" className="rounded-none">
-          <FaEdit></FaEdit> Edit
-        </Button>
-      </div>
+      <Button variant="outline" className="rounded-none">
+        <FaEdit></FaEdit> Edit
+      </Button>
+
       <Modal.Backdrop>
         <Modal.Container placement="auto">
           <Modal.Dialog className="sm:max-w-3xl">
