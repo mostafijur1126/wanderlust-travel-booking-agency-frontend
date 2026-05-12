@@ -1,4 +1,5 @@
 "use client";
+import { FcGoogle } from "react-icons/fc";
 import { authClient } from "@/lib/auth-client";
 import { Check } from "@gravity-ui/icons";
 import {
@@ -9,6 +10,7 @@ import {
   Form,
   Input,
   Label,
+  Separator,
   TextField,
 } from "@heroui/react";
 import { redirect } from "next/navigation";
@@ -18,15 +20,21 @@ const SingUpPage = () => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const userData = Object.fromEntries(formData.entries());
-    const { name, url, email, password } = userData;
-    // console.log(userData);
+
+    console.log(userData);
 
     const { data, error } = await authClient.signUp.email({
-      name,
-      url,
-      email,
-      password,
+      name: userData.name,
+      image: userData.image,
+      email: userData.email,
+      password: userData.password,
     });
+
+    if (data) {
+      await authClient.updateUser({
+        url,
+      });
+    }
     if (data) {
       alert("Singup Successfully");
       redirect("/");
@@ -36,9 +44,16 @@ const SingUpPage = () => {
     }
     // console.log(data, error);
   };
+
+  const handelSingUpGoogle = async () => {
+    await authClient.signIn.social({
+      provider: "google",
+    });
+  };
+
   return (
     <div className="max-w-7xl mx-auto py-20">
-      <div>
+      <div className="text-center mb-5">
         <h1 className="text-2xl font-bold">Create Accout</h1>
         <p> Start your adventre with Wanderlust</p>
       </div>
@@ -49,9 +64,9 @@ const SingUpPage = () => {
             <Input placeholder="Type your name" />
             <FieldError />
           </TextField>
-          <TextField name="url" type="text">
+          <TextField name="image" type="text">
             <Label>Image URL</Label>
-            <Input placeholder="Enter Your Emage url" />
+            <Input placeholder="Enter Your Image URL" />
             <FieldError />
           </TextField>
           <TextField
@@ -94,6 +109,7 @@ const SingUpPage = () => {
             </Description>
             <FieldError />
           </TextField>
+
           <div className="flex justify-center gap-2">
             <Button type="submit" className="bg-cyan-500 rounded-none w-full">
               <Check />
@@ -101,6 +117,20 @@ const SingUpPage = () => {
             </Button>
           </div>
         </Form>
+        <div className="flex justify-center items-center gap-3">
+          <Separator></Separator>
+          <div className="whitespace-nowrap">Or SingUp With Google</div>
+          <Separator></Separator>
+        </div>
+        <div className="text-center">
+          <Button
+            onClick={handelSingUpGoogle}
+            className="w-full"
+            variant="outline"
+          >
+            <FcGoogle /> Google Singup
+          </Button>
+        </div>
       </Card>
     </div>
   );

@@ -10,9 +10,11 @@ import {
   Form,
   Input,
   Label,
+  Separator,
   TextField,
 } from "@heroui/react";
 import { redirect } from "next/navigation";
+import { FcGoogle } from "react-icons/fc";
 
 const SignInPage = () => {
   const onSubmit = async (e) => {
@@ -34,6 +36,11 @@ const SignInPage = () => {
       alert(error.message);
     }
     // console.log(data, error);
+  };
+  const handelSingUpGoogle = async () => {
+    await authClient.signIn.social({
+      provider: "google",
+    });
   };
   return (
     <div className="max-w-7xl mx-auto py-20">
@@ -83,13 +90,27 @@ const SignInPage = () => {
           <div className="flex gap-2">
             <Button type="submit">
               <Check />
-              Submit
+              Login
             </Button>
             <Button type="reset" variant="secondary">
               Reset
             </Button>
           </div>
         </Form>
+        <div className="flex justify-center items-center gap-3">
+          <Separator></Separator>
+          <div className="whitespace-nowrap">Or SingUp With Google</div>
+          <Separator></Separator>
+        </div>
+        <div className="text-center">
+          <Button
+            onClick={handelSingUpGoogle}
+            className="w-full"
+            variant="outline"
+          >
+            <FcGoogle /> Google Singup
+          </Button>
+        </div>
       </Card>
     </div>
   );
