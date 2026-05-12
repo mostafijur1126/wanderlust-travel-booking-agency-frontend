@@ -1,8 +1,13 @@
+import { authClient } from "@/lib/auth-client";
+import { Button } from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const Navbar = () => {
+const Navbar = async () => {
+  const { data: session } = await authClient.getSession();
+  console.log(session);
+
   return (
     <nav className="flex justify-between items-center bg-white p-5">
       <ul className="flex gap-3">
@@ -38,6 +43,9 @@ const Navbar = () => {
         <li>
           <Link href={"/signup"}>SignUp</Link>
         </li>
+        <Button variant="outline">
+          <Link href={""}>SignOut</Link>
+        </Button>
       </ul>
     </nav>
   );
