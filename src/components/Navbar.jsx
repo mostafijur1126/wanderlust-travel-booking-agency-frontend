@@ -8,7 +8,7 @@ import React from "react";
 const Navbar = () => {
   const { data: session } = authClient.useSession();
   const user = session?.user;
-  console.log(session);
+  // console.log(session);
 
   const handerSingOut = async () => {
     await authClient.signOut({});
@@ -59,7 +59,7 @@ const Navbar = () => {
           </Button>
         </ul>
       ) : (
-        <ul className="flex gap-3">
+        <ul className="flex gap-3 items-center">
           <li>
             <Link href={"/signin"}>Signin</Link>
           </li>

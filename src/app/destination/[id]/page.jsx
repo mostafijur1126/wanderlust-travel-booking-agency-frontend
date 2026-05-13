@@ -1,6 +1,7 @@
+import BookCard from "@/components/BookCard";
 import { DeleteModal } from "@/components/DeleteModal";
 import { EditModal } from "@/components/EditModal";
-import { Button } from "@heroui/react";
+import { Button, Card } from "@heroui/react";
 import Image from "next/image";
 import React from "react";
 import { FaCalendarAlt, FaEdit, FaMapMarkerAlt } from "react-icons/fa";
@@ -28,8 +29,8 @@ const DestinationDetailsPage = async ({ params }) => {
       <div>
         <Image src={imageUrl} alt={destinationName} width={700} height={400} />
       </div>
-      <div className="flex  items-center justify-between p-4">
-        <div>
+      <div className="flex  justify-between p-4">
+        <div className="flex-2">
           <div className="flex items-center gap-1">
             <FaMapMarkerAlt />
             <p>{country}</p>
@@ -46,8 +47,8 @@ const DestinationDetailsPage = async ({ params }) => {
             <p>{description}</p>
           </div>
         </div>
-        <div>
-          <p> $ {price}</p>
+        <div className="flex-1">
+          <BookCard destinstion={destinstion}></BookCard>
         </div>
       </div>
     </div>
