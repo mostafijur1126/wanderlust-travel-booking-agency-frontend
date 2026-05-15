@@ -1,15 +1,26 @@
 import BookCard from "@/components/BookCard";
 import { DeleteModal } from "@/components/DeleteModal";
 import { EditModal } from "@/components/EditModal";
-import { Button, Card } from "@heroui/react";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 import Image from "next/image";
 import React from "react";
-import { FaCalendarAlt, FaEdit, FaMapMarkerAlt } from "react-icons/fa";
+import { FaCalendarAlt, FaMapMarkerAlt } from "react-icons/fa";
 
 const DestinationDetailsPage = async ({ params }) => {
   const { id } = await params;
-  //   console.log(id);
-  const res = await fetch(`http://localhost:5000/destination/${id}`);
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
+  // console.log(token);
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/destination/${id}`,
+    {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    },
+  );
   const destinstion = await res.json();
   //   console.log(destinstion);
   const {

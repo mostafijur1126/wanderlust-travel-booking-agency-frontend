@@ -6,12 +6,15 @@ import { FaTrash } from "react-icons/fa";
 export function CancelAlertModal({ booking }) {
   //   console.log(userId);
   const hendelCancleBooking = async () => {
-    const res = await fetch(`http://localhost:5000/booking/${booking}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/booking/${booking}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
       },
-    });
+    );
     const data = await res.json();
     // console.log(data);
     window.location.reload();

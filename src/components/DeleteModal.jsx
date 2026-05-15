@@ -7,12 +7,15 @@ import { FaDeleteLeft } from "react-icons/fa6";
 export function DeleteModal({ destinstion }) {
   const { _id, destinstionName } = destinstion;
   const hendelDelete = async () => {
-    const res = await fetch(`http://localhost:5000/destination/${_id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/destination/${_id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
       },
-    });
+    );
     const data = await res.json();
     redirect("/destination");
   };
